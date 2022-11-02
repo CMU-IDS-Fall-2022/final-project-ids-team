@@ -7,7 +7,7 @@
 **Team** 
 * Vrinda Jindal
 * Liyan Chang
-* Haoqu Qi
+* Haoyu Qi
 * Tanvi Karandikar
 * Vincie Ju
 
