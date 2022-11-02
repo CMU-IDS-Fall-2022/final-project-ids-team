@@ -1,6 +1,6 @@
 # Final Project Proposal
 
-**GitHub Repo URL**: https://github.com/CMU-IDS-Fall-2022/final-project-ids-team
+**GitHub Repo URL**: https://cmu-ids-2020.github.io/
 
 ## Song Popularity Analysis
 
