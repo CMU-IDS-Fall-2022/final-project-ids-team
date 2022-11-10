@@ -49,4 +49,4 @@ For this problem, we decide to use the heat map showing the correlation matrix b
  - How can we see the change of the trend?  
  
  For this problem, we provide users checkboxes to select features they are interested in, for example, energy, genre and so on. We then show them the change of the features they select accoring to the change of time. And they can also choose another feature as a key for different groups, for instance, users can choose genre as a group key and choose energy as the feature they want to explore, and we'll show them the change of the energy of popular country music, R&B music, hip-hop music and so on.  
- ![trend](./images/trend)
+ ![trend](./images/trend.jpg)
