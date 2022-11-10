@@ -31,3 +31,16 @@ To help the music producer get inspiration and music lovers to find more songs o
 - [Spotify Top 50 songs from 2010-2019 - by year](https://www.kaggle.com/datasets/leonardopena/top-spotify-songs-from-20102019-by-year)
 - [Spotify API](https://developer.spotify.com/documentation/web-api/)
 - [Spotify Million Playlist Dataset](https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge)
+
+
+**Sketches and Data Analysis**
+
+***Data Processing***
+
+
+***System Design***
+
+- Why are these songs popular?
+For this problem, we decide to use the heat map showing the correlation matrix between each numerical variables and the popularity index(given from the dataset). The color of the map shows the magnitude of the correlation coefficient between the variables. We will provide the users the choices of the features they want to explore. The sketch for this question is shown as below.
+
+ <div align=center><img width="200" height="250" src="https://github.com/CMU-IDS-Fall-2022/final-project-ids-team/blob/main/images/sketch1.jpeg"/></div>
