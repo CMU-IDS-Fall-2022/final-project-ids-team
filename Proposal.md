@@ -71,3 +71,11 @@ For this problem, we decide to use the heat map showing the correlation matrix b
  
  For this problem, we provide users checkboxes to select features they are interested in, for example, energy, genre and so on. We then show them the change of the features they select accoring to the change of time. And they can also choose another feature as a key for different groups, for instance, users can choose genre as a group key and choose energy as the feature they want to explore, and we'll show them the change of the energy of popular country music, R&B music, hip-hop music and so on.  
  ![trend](./images/trend.jpg)
+ 
+ - Recommendation
+
+For recommendation, we allow users two kinds of input, either directly the name of song or enter each feature they want. We will use Spotify API or recommendation algorithm to give them top 10 similar songs and a report of the average feature values across different years. A sketch is given below.
+
+ <div align=center><img width="800" height="600" src="https://github.com/CMU-IDS-Fall-2022/final-project-ids-team/blob/main/images/IDSSketch.png"/></div>
+ 
+ 
