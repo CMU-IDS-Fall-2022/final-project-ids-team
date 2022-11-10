@@ -40,7 +40,13 @@ To help the music producer get inspiration and music lovers to find more songs o
 
 ***System Design***
 
-- Why are these songs popular?
+- Why are these songs popular?  
+  
 For this problem, we decide to use the heat map showing the correlation matrix between each numerical variables and the popularity index(given from the dataset). The color of the map shows the magnitude of the correlation coefficient between the variables. We will provide the users the choices of the features they want to explore. The sketch for this question is shown as below.
 
  <div align=center><img width="200" height="250" src="https://github.com/CMU-IDS-Fall-2022/final-project-ids-team/blob/main/images/sketch1.jpeg"/></div>
+ 
+ - How can we see the change of the trend?  
+ 
+ For this problem, we provide users checkboxes to select features they are interested in, for example, energy, genre and so on. We then show them the change of the features they select accoring to the change of time. And they can also choose another feature as a key for different groups, for instance, users can choose genre as a group key and choose energy as the feature they want to explore, and we'll show them the change of the energy of popular country music, R&B music, hip-hop music and so on.  
+ ![trend](./images/trend)
