@@ -52,6 +52,9 @@ For this problem, we decide to use the heat map showing the correlation matrix b
  ![trend](./images/trend.jpg)
  
  - Recommendation
- <div align=center><img width="200" height="250" src="https://github.com/CMU-IDS-Fall-2022/final-project-ids-team/blob/main/images/IDSSketch.png"/></div>
+
+For recommendation, we allow users two kinds of input, either directly the name of song or enter each feature they want. We will use Spotify API or recommendation algorithm to give them top 10 similar songs and a report of the average feature values across different years. A sketch is given below.
+
+ <div align=center><img width="800" height="300" src="https://github.com/CMU-IDS-Fall-2022/final-project-ids-team/blob/main/images/IDSSketch.png"/></div>
  
  
