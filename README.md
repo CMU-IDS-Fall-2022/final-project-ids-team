@@ -15,12 +15,12 @@ Update towards the end of the project.
 
 ### Proposal
 
-- [ ] The URL at the top of this readme needs to point to your application online. It should also list the names of the team members.
-- [ ] A completed [proposal](Proposal.md). Each student should submit the URL that points to this file in their github repo on Canvas.
+- [:white_check_mark:] The URL at the top of this readme needs to point to your application online. It should also list the names of the team members.
+- [:white_check_mark:] A completed [proposal](Proposal.md). Each student should submit the URL that points to this file in their github repo on Canvas.
 
 ### Sketches
 
-- [ ] Develop sketches/prototype of your project.
+- [:white_check_mark:] Develop sketches/prototype of your project.
 
 ### Final deliverables
 
