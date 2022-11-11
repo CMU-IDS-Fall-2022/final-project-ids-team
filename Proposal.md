@@ -71,13 +71,17 @@ We plan to use Dataset1 to analyize when what songs were popular. And Dataset2 t
 Both datasets examines the most popular songs. In this case, the popularity column is less important, as we are more interested in the actual characteristics of these features. In particular, the musical features returned by the Spotify API are the quantities we plan to focus on. We did correlation analysis between the features.
 
 *Dataset1*
+
 ![corr](./images/eda-2/pearsons_2.png)
 
 *Dataset2*
+
 ![corr](./images/eda-1/pearson_1.jpg)
 
 **Data processing be implementation**  
     - We will aggregate the data by the year (for both datasets), and take average of musical features to make yearwise plots. Other filtering operations can be conducted by simple pandas changes.
+
+Since we have access to the Spotify API and the Million Songs Playlist, we plan to extract more data using them if need be.
 
 ***System Design***
 
