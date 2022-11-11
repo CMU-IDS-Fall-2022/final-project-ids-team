@@ -33,7 +33,7 @@ To help the music producer get inspiration and music lovers to find more songs o
 - [Spotify Million Playlist Dataset](https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge)
 
 
-**Sketches and Data Analysis**
+## Sketches and Data Analysis
 
 ***Data Processing***
 
