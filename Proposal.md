@@ -37,27 +37,47 @@ To help the music producer get inspiration and music lovers to find more songs o
 
 ***Data Processing***
 
-*Spotify Top 50 songs from 2010-2019 - by year*
 
-General statics:
-    
+
+General statisticss:
+
+ *Spotify Top 50 songs from 2010-2019 - by year - (henceforth called Dataset1)*   
+
 ![2-overview](./images/eda-2/overview.png)
 
-* Do you have to do substantial data cleanup? 
-    - In this curated dataset, there are no missing values. Hence, not much data cleanup was required. Also, upon loading the dataset, all numerical values were detected as such. The maximum and minimum values of all the features appeared to lie within a reasonable range (no outliers). The first column (index) was dropped. 
-
-    The distribution of number of songs across years is not uniform. To enable uniformity, we will select the top k songs by "pop", i.e. popularity. k here being the least number of songs in any year, which is 2018.
-
-    ![year](./images/eda-2/year.png)
+*Spotify - All Time Top 2000s Mega Dataset - (henceforth called Dataset2)*
+![3-overview](./images/eda-1/overview.jpg)
 
 
-* What quantities do you plan to derive from your data? 
-    - This dataset examines the most popular songs. In this case, the popularity column is less important, as we are more interested in the actual characteristics of these features. In particular, the musical features returned by the Spotify API are the quantities we plan to focus on. Some features show high correlation, for example Energy(nrgy) and Loudness(dB).
+**data cleanup?**
 
-    ![corr](./images/eda-2/pearsons_2.png)
+In these datasets, there are no missing values/repeated values as they have been curated from the Official Spotify API. Hence, not much data cleanup was required. Also, upon loading the dataset, all numerical values were detected as such. The maximum and minimum values of all the features appeared to lie within a reasonable range (no outliers). The first column (index) was dropped. 
 
-* How will data processing be implemented?  
-    - We will aggregate the data by the year, and take average of musical features to make yearwise plots. Other filtering operations can be conducted by simple pandas changes.
+Dataset1 deals reports the years when these songs were topping Billboard Charts along with the other musical features of the music. The distribution of number of songs across years is not uniform. To enable uniformity, we will select the top k songs by "pop", i.e. popularity. k here being the least number of songs in any year, which is 2018.
+
+![year](./images/eda-2/year.png)
+
+Dataset2 reports the features and popularity of songs along with when they were released. 
+
+![year](./images/eda-1/year.jpg)
+
+
+
+**quantities we plan to derive from your data** 
+
+We plan to use Dataset1 to analyize when what songs were popular. And Dataset2 to analyize what makes songs popular in general.
+
+
+Both datasets examines the most popular songs. In this case, the popularity column is less important, as we are more interested in the actual characteristics of these features. In particular, the musical features returned by the Spotify API are the quantities we plan to focus on. We did correlation analysis between the features.
+
+*Dataset1*
+![corr](./images/eda-2/pearsons_2.png)
+
+*Dataset2*
+![corr](./images/eda-1/pearson_1.jpg)
+
+**Data processing be implementation**  
+    - We will aggregate the data by the year (for both datasets), and take average of musical features to make yearwise plots. Other filtering operations can be conducted by simple pandas changes.
 
 ***System Design***
 
