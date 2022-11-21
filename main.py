@@ -5,47 +5,60 @@ import requests
 import json
 import numpy as np
 import pandas as pd
+from numpy.random import normal
+import plotly.express as px
 
 
 st.title("Let's analyze some heat songs.")
 
-# @st.cache  # add caching so we load the data only once
-# def load_data():
-#     # Load the penguin data from https://github.com/allisonhorst/palmerpenguins.
-#     url_2022 = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?year=2001"
-#     resp = requests.get(url_2022)
-#     data_resp = resp.json()
-#     with open('chicago_crime_2022.json', 'w')as f:
-#         json.dump(data_resp, f)
-#     data_22 = pd.read_json('chicago_crime_2022.json')
-#     return data_22
+@st.cache  # add caching so we load the data only once
+def load_data():
+    df = pd.read_csv('Spotify-2000.csv')
+    return df
 
-# @st.cache
-# def get_slice_membership(df, crime_type, location_type):
-#     """
-#     Implement a function that computes which rows of the given dataframe should
-#     be part of the slice, and returns a boolean pandas Series that indicates 0
-#     if the row is not part of the slice, and 1 if it is part of the slice.
+@st.cache
+def get_slice_data(df, genre):
+    if genre != 'others':
+        labels = df['Top Genre']==genre
+        return labels
     
-#     In the example provided, we assume genders is a list of selected strings
-#     (e.g. ['Male', 'Transgender']). We then filter the labels based on which
-#     rows have a value for gender that is contained in this list. You can extend
-#     this approach to the other variables based on how they are returned from
-#     their respective Streamlit components.
-#     """
-#     labels = pd.Series([True] * len(df), index=df.index)
-#     if not 'All' in crime_type: 
-#         if crime_type:
-#             labels &= df['primary_type'].isin(crime_type)
-    
-#     if not 'All' in location_type: 
-#         if location_type:
-#             labels &= df['location_description'].isin(location_type)
-    
-#     return labels
+    labels = ~df['Top Genre'].isin(['album rock', 'adult standards', 'dutch pop', 'alternative rock',
+       'dance pop'])
+    return labels
 
-st.write("Please input your favorite artist.")
+st.write("Please select your interested genre.")
 
-artist = st.text_input(label="your favorite singer is: ")
+df = load_data()
+
+
+with st.sidebar:
+    st.header('Spotify Music Analysis')
+
+# cols=st.columns(2)
+
+# with cols[0]:
+    selections = np.array(['album rock', 'adult standards', 'dutch pop', 'alternative rock',
+       'dance pop', 'others'])
+    genre=st.selectbox('Top Genre',selections)
+# with cols[1]:
+    selections = np.array(['Danceability', 'Loudness (dB)',
+       'Liveness', 'Valence', 'Length (Duration)', 'Acousticness',
+       'Speechiness', 'Popularity'])
+    feature = st.selectbox('Feature', selections)
+
+df_genre = df[get_slice_data(df, genre)]
+d60s = df_genre[(df_genre['Year']>=1959) & (df_genre['Year']<1969)][feature].reset_index(drop=True)
+d70s = df_genre[(df_genre['Year']>=1969) & (df_genre['Year']<1979)][feature].reset_index(drop=True)
+d80s = df_genre[(df_genre['Year']>=1979) & (df_genre['Year']<1989)][feature].reset_index(drop=True)
+d90s = df_genre[(df_genre['Year']>=1989) & (df_genre['Year']<1999)][feature].reset_index(drop=True)
+d00s = df_genre[(df_genre['Year']>=1999) & (df_genre['Year']<2009)][feature].reset_index(drop=True)
+d10s = df_genre[(df_genre['Year']>=2009) & (df_genre['Year']<2019)][feature].reset_index(drop=True)
+
+colnames = ['60s', '70s', '80s', '90s', '00s', '10s']
+df_concat = pd.concat([d60s, d70s, d80s, d90s, d00s, d10s], axis=1)
+df_concat.columns=colnames
+
+st.plotly_chart(px.violin(df_concat,orientation='h').update_traces(side="positive", width=5))
+
 
 
