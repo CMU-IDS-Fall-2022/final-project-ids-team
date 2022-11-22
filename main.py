@@ -26,7 +26,7 @@ def get_slice_data(df, genre):
        'dance pop'])
     return labels
 
-st.write("Please select your interested genre.")
+st.write("Please select your interested genre and observe the trend of some features from 60s to the recent.")
 
 df = load_data()
 
@@ -58,7 +58,16 @@ colnames = ['60s', '70s', '80s', '90s', '00s', '10s']
 df_concat = pd.concat([d60s, d70s, d80s, d90s, d00s, d10s], axis=1)
 df_concat.columns=colnames
 
-st.plotly_chart(px.violin(df_concat,orientation='h').update_traces(side="positive", width=5))
+st.plotly_chart(
+    px.violin(
+        df_concat,orientation='h',labels={'variable':genre, 'value':feature}
+    ).update_traces(
+        side="positive", width=5, meanline_visible=True, hoveron= "kde", hoverinfo='x'
+    ).update_layout(
+        hovermode="closest"
+    )
+)
 
 
+st.write("Here is the recommendation network based on your selection.")
 
