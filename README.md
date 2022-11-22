@@ -2,10 +2,11 @@
 
 * **Online URL**: TODO
 * **Team members**:
-  * Contact person: TODO@andrew.cmu.edu
-  * TODO@andrew.cmu.edu
-  * TODO@andrew.cmu.edu
-  * TODO@andrew.cmu.edu
+  * Contact person: liyanc@andrew.cmu.edu
+  * haoyuq@andrew.cmu.edu
+  * ranj@andrew.cmu.edu
+  * vrindaj@andrew.cmu.edu
+  * tkarandi@andrew.cmu.edu
 
 ## Work distribution
 
