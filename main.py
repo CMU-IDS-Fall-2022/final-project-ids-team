@@ -68,15 +68,20 @@ st.plotly_chart(
     )
 )
 
-cols=st.columns(1)
+cols=st.columns(2)
 
 with cols[0]:
+    selections = np.array(['album rock', 'adult standards', 'dutch pop', 'alternative rock',
+       'dance pop', 'others'])
+    genre=st.selectbox('Top Genre',selections)
+with cols[1]:
     selections = np.array(['Year','Beats Per Minute (BPM)',	'Energy',	'Danceability',	'Loudness (dB)'	,'Liveness',	'Valence','Length (Duration)','Acousticness','Speechiness',	'Popularity'])
     simi_feature=st.selectbox('Interested feature',selections)
 
-diff = df[simi_feature].values - df[simi_feature].values[:,None]
+df_genre = df[get_slice_data(df, genre)]
+diff = df_genre[simi_feature].values - df_genre[simi_feature].values[:,None]
 diff_norm = (diff-diff.min())/(diff.max()-diff.min())*100    
-diff_matrix = pd.concat((df['Title'], pd.DataFrame(diff_norm, columns=df['Title'])), axis=1)
+diff_matrix = pd.concat((df_genre['Title'], pd.DataFrame(diff_norm, columns=df_genre['Title'])), axis=1)
 
 st.write("Here is the recommendation network based on your selection.")
 
