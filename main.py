@@ -82,6 +82,7 @@ df_genre = df[get_slice_data(df, genre)]
 diff = df_genre[simi_feature].values - df_genre[simi_feature].values[:,None]
 diff_norm = 1-((diff-diff.min())/(diff.max()-diff.min()))
 diff_norm[diff_norm<0.5] = 0
+np.fill_diagonal(diff_norm, 0)
 diff_norm = diff_norm*100
 diff_matrix = pd.concat((df_genre['Title'], pd.DataFrame(diff_norm, columns=df_genre['Title'])), axis=1)
 
