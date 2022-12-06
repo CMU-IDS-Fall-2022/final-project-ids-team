@@ -68,6 +68,14 @@ st.plotly_chart(
     )
 )
 
+cols=st.columns(1)
+
+with cols[0]:
+    selections = np.array(['Year','Beats Per Minute (BPM)',	'Energy',	'Danceability',	'Loudness (dB)'	,'Liveness',	'Valence','Length (Duration)','Acousticness','Speechiness',	'Popularity'])
+    simi_feature=st.selectbox('Interested feature',selections)
+
+diff = df[simi_feature] - df[simi_feature][:,None]    
+diff_matrix = pd.concat((df['Title'], pd.DataFrame(diff, columns=df['Title'])), axis=1)
 
 st.write("Here is the recommendation network based on your selection.")
 
