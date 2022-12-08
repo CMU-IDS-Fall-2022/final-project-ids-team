@@ -19,7 +19,7 @@ st.markdown(page_bg, unsafe_allow_html = True)
 
 @st.cache  # add caching so we load the data only once
 def load_data():
-    df = pd.read_csv('data/cleaned.csv', encoding='latin-1')
+    df = pd.read_csv('https://raw.githubusercontent.com/CMU-IDS-Fall-2022/final-project-ids-team/main/app/data/cleaned.csv?token=GHSAT0AAAAAABYIOQG7Z42FYYNOVKILQAQGY4SJDGQ', encoding='latin-1')
     return df
 
 @st.cache
