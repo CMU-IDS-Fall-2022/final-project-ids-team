@@ -71,7 +71,7 @@ d10s = df_genre[(df_genre['Year']>=2009) & (df_genre['Year']<2019)][feature].res
 colnames = ['60s', '70s', '80s', '90s', '00s', '10s']
 df_concat = pd.concat([d60s, d70s, d80s, d90s, d00s, d10s], axis=1)
 df_concat.columns=colnames
-
+print(df_concat)
 st.plotly_chart(
     px.violin(
         df_concat,orientation='h',labels={'variable':genre, 'value':feature}
