@@ -10,7 +10,13 @@
 
 ## Work distribution
 
-Update towards the end of the project.
+Team member | Work done
+------ | ------
+Liyan   |  
+   |  
+   |  
+   |  
+   |  
 
 ## Deliverables
 
