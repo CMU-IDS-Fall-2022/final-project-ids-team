@@ -27,7 +27,7 @@ st.markdown(page_bg, unsafe_allow_html = True)
 feats = ['BPM','Energy','Danceability','Loudness','Liveness','Valence','Duration','Acousticness','Speechiness','Popularity']
 @st.cache  # add caching so we load the data only once
 def load_data(md):
-    df = pd.read_csv('data/cleaned.csv', encoding='latin-1').groupby("Year").agg(md)
+    df = pd.read_csv('https://raw.githubusercontent.com/CMU-IDS-Fall-2022/final-project-ids-team/main/app/data/cleaned.csv?token=GHSAT0AAAAAABYIOQG7Z42FYYNOVKILQAQGY4SJDGQ', encoding='latin-1').groupby("Year").agg(md)
     return df
 
 
