@@ -190,6 +190,7 @@ In order for audience to be informed while developing their own works, our initi
 ​	In addition to advances in user engagement, our approach has some inherent drawbacks. The majority of our visualizations, including song connections, feature connections, and so forth, are based on certain genres. There are, nevertheless, linkages between songs of many genres. For example, audiences may want to know how popular songs of different decades are related with each other. And the link between songs or characteristics for various genres cannot be seen in our present design.
 
 # Future Work
+​	Our study presents statistics on the top 2000 songs from 1959 to 2019, which provides some insights into the characteristics of these songs based on various genres. In reality, it's possible that audiences desire to examine the characteristics of famous songs as well as compare them to less well-liked songs and draw lessons from the latter. In future study, it could be necessary to increase the amount of data in order to compare songs with comparable qualities but different commercial outcomes, as well as to show consumers the similarities between successful songs. 
 
 # Reference
 [1] Barlas, A. (2021, November 29). Combining Spotify and R - an interactive Rshiny app + spotify dashboard tutorial. Medium. Retrieved December 6, 2022, from https://towardsdatascience.com/combining-spotify-and-r-an-interactive-rshiny-app-spotify-dashboard-tutorial-af48104cb6e9 
