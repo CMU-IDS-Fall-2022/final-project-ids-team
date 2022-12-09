@@ -4,7 +4,7 @@
 
 **Video URL**: https://drive.google.com/file/d/1WBZXsk8kMoBW9OenC28hTJSlLWpgW4k0/view?usp=sharing
 
-** Abstract
+## Abstract
 
 Music is functional as it can promote human well-being by tying to human social instincts. Studying popular music can bring into clear definition aspects of our lives and culture. For music producers, understanding the communities' tastes would help them explore on what makes a song popular. For music lovers, they could better understand their listening preferences and get the similar song recommendations based on their preferences. To achieve our goal of providing insights into the popular music for both music producers and music lovers, we aim to conduct a thorough analysis of the features of popular music and build a recommendation system for the music lovers. In detail, we conducted meticulous explorative data analysis for the musical features of the top popular songs on the billboard over years by visualizing their distributions by using the pie charts and histograms. This enable us to answer the question what features make the songs popular. In addition to that, we visualize the trends of the musical features over time by drawing parallel ridge line maps, area charts and line charts to understand how the musical features change over time and the evolution of the trend. In order to better provide insights of the personal musical preferences for music lovers, we visualize the similar songs based on the selected features and make some recommendations for them.
 
