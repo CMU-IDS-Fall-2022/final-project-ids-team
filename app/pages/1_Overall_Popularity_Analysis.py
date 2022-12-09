@@ -121,7 +121,7 @@ maindf["genre"] = counter["Top Genre"]
 maindf = maindf.reset_index()
 print(maindf)
 
-slider = st.slider("Move slider to filter out less popular artists", min_value=1, max_value=max(maindf["Number of Songs"]), step=1)
+slider = st.slider("Move slider to filter out less popular artists (Slider value indicates number of songs by artist in the dataset)", min_value=1, max_value=max(maindf["Number of Songs"]), step=1)
 
 p3_chart = alt.Chart(maindf[maindf["Number of Songs"] >= slider]).mark_point(filled=True, opacity=1).encode(
     alt.X('Year', scale=alt.Scale(domain=[2009, 2020])),
