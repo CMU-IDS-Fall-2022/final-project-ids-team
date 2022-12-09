@@ -10,11 +10,15 @@ import scipy.spatial as sp
 
 page_bg = """
     <style>
+   
     [data-testid="stSidebar"]{
         background-color: black;
     }
     [data-testid="stSidebar"] span{
         color: white;
+    }
+    span[data-baseweb="tag"] {
+    background-color: green !important;
     }
     </style>
 """
@@ -85,7 +89,7 @@ df = load_data()
 #     )
 # )
 
-st.write("Please search your favorite song, and we can make recommendation for you.")
+st.write("Please search your favorite song, and we can make recommendation for you from a database of the 2000 most popular songs of all time.")
 titles = df['Title'].to_list()
 # print(titles[0])
 def search_wikipedia(searchterm):

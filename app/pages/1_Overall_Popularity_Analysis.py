@@ -48,14 +48,14 @@ st.markdown("### We now explore the overall characteristics of the selected year
 
 
 ############ PLOT 1 #######################
-st.markdown("##### Part 1: Here we visualise the proportion of the song genres that were popular.")
+st.markdown("##### Part 1: What song genres are popular?")
 
 
 p1_labels = get_slice_data(df, None, selected_years)
 print(p1_labels)
 
 p1_chart = alt.Chart(df[p1_labels!=0]).mark_bar().encode(
-    x=alt.X('count()'),
+    x=alt.X('count()', axis=alt.Axis(title='Number of Songs')),
     y=alt.Y('Top Genre', sort = 'x', axis=alt.Axis(title='Genre')),
     color= alt.value('green')
 ).interactive() #TODO add tooltips to get values on hovering
@@ -84,7 +84,7 @@ with cols[1]:
 
 ############ PLOT 2 #######################
 
-st.markdown("##### Part 2: Here we closely examine the distribution of one particular feature.")
+st.markdown("##### Part 2: Consider a specific feature. What values does it take in the popular songs?")
 
 # st.markdown("Bar chart to visualise other features")
 
@@ -92,11 +92,11 @@ p2_selected_feature = st.selectbox('Choose a feature to visualise',
 ['BPM','Energy','Danceability','Loudness','Liveness','Valence','Duration','Acousticness','Speechiness','Popularity'])
 p2_labels = get_slice_data(df, None, selected_years)
 
-st.markdown("First, we get a general overview of the distribution of "+p2_selected_feature+" values:")
+# st.markdown("First, we get a general overview of the distribution of "+p2_selected_feature+" values:")
 
 p2_chart = alt.Chart(df[p2_labels!=0]).mark_bar().encode(
     x=alt.X(p2_selected_feature, bin=alt.Bin(maxbins=40)),
-    y='count()',
+    y=alt.Y('count()',  axis=alt.Axis(title='Number of Songs')),
      color= alt.value('green')
 )
 
@@ -108,24 +108,28 @@ st.altair_chart(p2_chart)
 # ############ PLOT 3 #######################
 
 st.markdown("Now we visualise at the granularity level of artists. In the plot below, each point represents an artist. \
-Size of the dot is the number of times an artist is present in the dataset. The genre attached to an artist is the most \
-common genre of songs by the artist. ")
+Size of the dot is the number of times an artist is present in the dataset. On the X-axis is average year of all the \
+    songs by the artist. Y-axis is average "+p2_selected_feature)
 
 maindf = df.groupby("artist").agg("mean")
 counter = df.groupby("artist").agg("count")
-maindf["counts"] = counter["title"]
+maindf["Number of Songs"] = counter["title"]
 counter = df.groupby("artist").agg(lambda x: pd.Series.mode(x)[0])
 print(counter)
 maindf["genre"] = counter["Top Genre"]
 
 maindf = maindf.reset_index()
 print(maindf)
-p3_chart = alt.Chart(maindf).mark_point(filled=True, opacity=1).encode(
+
+slider = st.slider("Move slider to filter out less popular artists", min_value=1, max_value=max(maindf["Number of Songs"]), step=1)
+
+p3_chart = alt.Chart(maindf[maindf["Number of Songs"] >= slider]).mark_point(filled=True, opacity=1).encode(
     alt.X('Year', scale=alt.Scale(domain=[2009, 2020])),
     alt.Y(p2_selected_feature),
-    size='counts',
-    color = 'genre',
-    tooltip=['artist']
+    alt.Color('genre', scale=alt.Scale(domain=sorted(maindf['genre'].unique().tolist()))),
+    size='Number of Songs',
+    # color = 'genre',
+    tooltip=['artist', 'Number of Songs']
 ).properties(height=400,width=480)
 
 st.altair_chart(p3_chart)

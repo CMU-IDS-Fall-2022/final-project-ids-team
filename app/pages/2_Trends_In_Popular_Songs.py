@@ -52,20 +52,20 @@ def load_genres():
 
 #TODO: modify x-axis so every year shows up and not like 2,014
 
-st.markdown("# Change Over Time")
+st.markdown("# How has popularity changed over time?")
 
 st.markdown("#### In this page we explore how the characteristics of popular songs changed over the years.")
 
 with st.spinner(text="Loading data..."):
     df_genres = load_genres()
-st.markdown("How did genre popularity change over the years?")
+st.markdown("##### Part 1: Was there any change in what genres are popular every year?")
 
 p0_selection = alt.selection_multi(fields=['Top Genre'], bind='legend',init=[{'Top Genre': 'dance pop'}])
 # p0_selection = "dance pop"
 p0_chart = alt.Chart(df_genres).mark_area().encode(
     alt.X("Year:T", axis=alt.Axis(domain=False, format='%Y', tickSize=0)),
     alt.Y("Fraction:Q", stack="zero"),
-    alt.Color('Top Genre:N', scale=alt.Scale(domain=df_genres['Top Genre'].unique().tolist())),
+    alt.Color('Top Genre:N', scale=alt.Scale(domain=sorted(df_genres['Top Genre'].unique().tolist()))),
     opacity=alt.condition(p0_selection, alt.value(1), alt.value(0.1))
 ).add_selection(
     p0_selection
@@ -75,8 +75,11 @@ p0_chart = alt.Chart(df_genres).mark_area().encode(
 st.altair_chart(p0_chart)
 
 
-agg_mode = st.radio('We present aggregations of the Spotify features. Choose how you wish to aggregate:', 
+
+agg_mode = st.radio('In the following plots we present aggregations of the Spotify musical features. Choose how you wish to aggregate:', 
 ['mean', 'min', 'max', 'median']) 
+
+st.markdown("##### Part 2: Was there any change in "+agg_mode+" musical feature values over the years?")
 
 with st.spinner(text="Loading data..."):
     df, df_unagg  = load_data(agg_mode)
@@ -84,7 +87,7 @@ with st.spinner(text="Loading data..."):
 
 genre_chosen = st.radio
 ##### Plot 2 ##########
-st.markdown("Heatmap of the aggregated data")
+st.markdown("###### Visualising the aggregated data as a heatmap")
 #source: https://stackoverflow.com/questions/65871604/how-to-display-heatmap-color-correlation-plot-in-streamlit
 fig, ax = plt.subplots()
 #source: https://www.educative.io/answers/how-to-normalize-all-columns-in-a-dataframe-in-pandas
@@ -94,7 +97,7 @@ st.write(fig)
 
 
 ############ PLOT 1 #######################
-st.markdown("Musical features plotted on the line plot")
+st.markdown("##### Part 3: Closely examining desired features")
 p1_selected_features = st.multiselect('Choose features to visualise', feats)
 # print(p1_selected_features)
 
@@ -105,16 +108,19 @@ if p1_selected_features == []:
 
 #source: https://github.com/altair-viz/altair/issues/968
 data = df[p1_selected_features].reset_index().melt('Year')
-
+data["Year"] = data["Year"].apply(lambda x: str(x))
 p1_chart = alt.Chart(data).mark_line().encode(
-    x='Year',
+    alt.X("Year"),# axis=alt.Axis(domain=False, format='%Y', tickSize=0)),
+    # x='Year',
     y='value',
     color='variable'
-).properties(width=600, height=250).interactive()
+).properties(width=600, height=250)
 st.altair_chart(p1_chart)
 
 ############## PLOT 3 #######################
 # print(df)
+
+st.markdown("###### We closely observe the distribution of each feature value in all the songs popular songs each year")
 
 def get_modified_df (df_unagg, feat):
     # print(df_unagg)
