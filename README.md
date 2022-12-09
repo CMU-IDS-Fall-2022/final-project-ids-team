@@ -44,18 +44,4 @@ Tanvi    |  Methods + Results (report), application design, popularity Analysis 
 The Project was carried out in several well ideated and compartmentalized phases. A somewhat detailed flow of the process can be seen below:
 
 <p><img src="images/ids.jpg"></p>
-### Proposal
 
-- [:white_check_mark:] The URL at the top of this readme needs to point to your application online. It should also list the names of the team members.
-- [:white_check_mark:] A completed [proposal](Proposal.md). Each student should submit the URL that points to this file in their github repo on Canvas.
-
-### Sketches
-
-- [:white_check_mark:] Develop sketches/prototype of your project.
-
-### Final deliverables
-
-- [:white_check_mark:] All code for the project should be in the repo.
-- [:white_check_mark:] Update the **Online URL** above to point to your deployed project.
-- [:white_check_mark:] A detailed [project report](Report.md).  Each student should submit the URL that points to this file in their github repo on Canvas.
-- [:white_check_mark:] A 5 minute video demonstration.  Upload the video to this github repo and link to it from your report.
