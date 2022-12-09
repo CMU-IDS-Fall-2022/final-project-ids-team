@@ -12,8 +12,8 @@
 
 Team member | Work done
 ------ | ------
-Liyan   |  
-   |  
+Liyan   | Introduction and Future work(report), recommendation songs for users, edge map   
+Haoyu   | Discussion(report), data cleaning, information extraction, API parsing 
    |  
    |  
    |  
