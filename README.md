@@ -1,24 +1,26 @@
-# CMU Interactive Data Science Final Project
+# Popular Song Data Analysis
 
 * **Online URL**: https://cmu-ids-fall-2022-final-project-ids-team-apphome-7k3ewy.streamlit.app/
 * **Team members**:
-  * Contact person: liyanc@andrew.cmu.edu
-  * haoyuq@andrew.cmu.edu
-  * ranj@andrew.cmu.edu
-  * vrindaj@andrew.cmu.edu
-  * tkarandi@andrew.cmu.edu
+  * Liyan Chang (Contact Person: liyanc@andrew.cmu.edu)
+  * Haoyu Qi (haoyuq)
+  * Ran Ju (ranj)
+  * Vrinda Jindal (vrindaj)
+  * Tanvi Karandikar (tkarandi)
 
 ## Work distribution
 
 Team member | Work done
 ------ | ------
-Liyan   | Recommendation songs for users, edge map   
+Liyan   | Recommendation system, edge map   
 Haoyu   | Discussion(report), data cleaning, information extraction, API parsing 
 Ran Ju  | Related Work(report), edge map, scatter plot, ridge line plot 
-   |  
-   |  
+Vrinda | Methods + Results (report), Trend Analysis (drawing insights), Data Analysis, bubble plot, voilin plots, rec sys design
+Tanvi    |  Methods + Results (report), application design, popularity Analysis (insights), bar plots, pie chart, video creation
 
-## Deliverables
+## Project Phases
+The Project was carried out in several well ideated and compartmentalized phases. A somewhat detailed flow of the process can be seen below:
+
 
 ### Proposal
 
@@ -31,7 +33,7 @@ Ran Ju  | Related Work(report), edge map, scatter plot, ridge line plot
 
 ### Final deliverables
 
-- [ ] All code for the project should be in the repo.
+- [:white_check_mark:] All code for the project should be in the repo.
 - [:white_check_mark:] Update the **Online URL** above to point to your deployed project.
-- [ ] A detailed [project report](Report.md).  Each student should submit the URL that points to this file in their github repo on Canvas.
-- [ ] A 5 minute video demonstration.  Upload the video to this github repo and link to it from your report.
+- [:white_check_mark:] A detailed [project report](Report.md).  Each student should submit the URL that points to this file in their github repo on Canvas.
+- [:white_check_mark:] A 5 minute video demonstration.  Upload the video to this github repo and link to it from your report.
