@@ -6,14 +6,19 @@ import plotly.express as px
 import igraph as ig
 import plotly.graph_objects as go
 from streamlit_searchbox import st_searchbox
+import scipy.spatial as sp
 
 page_bg = """
     <style>
+   
     [data-testid="stSidebar"]{
         background-color: black;
     }
     [data-testid="stSidebar"] span{
         color: white;
+    }
+    span[data-baseweb="tag"] {
+    background-color: green !important;
     }
     </style>
 """
@@ -84,7 +89,7 @@ df = load_data()
 #     )
 # )
 
-st.write("Please search your favorite song, and we can make recommendation for you.")
+st.write("Please search your favorite song, and we can make recommendation for you from a database of the 2000 most popular songs of all time.")
 titles = df['Title'].to_list()
 # print(titles[0])
 def search_wikipedia(searchterm):
@@ -98,6 +103,12 @@ selected_value = st_searchbox(
     key="wiki_searchbox",
 )
 
+selections = np.array(['Danceability', 'Loudness (dB)',
+        'Liveness', 'Valence', 'Length (Duration)', 'Acousticness',
+        'Speechiness', 'Popularity'])
+feature = st.multiselect('Choose desired features we can recommend based on.', options=selections, default=selections)
+# print(feature)
+
 if selected_value:
     # selected_value = 'Sunrise'
     # print(df['Title'==selected_value]['Top Genre'])
@@ -107,11 +118,8 @@ if selected_value:
         genre_edge = 'others'
     # st.markdown("You've selected: %s" % selected_value)
 
-    st.write("The song you are inspecting is", selected_value, 'and its genre falls in', genre_edge)
-    selections = np.array(['Danceability', 'Loudness (dB)',
-        'Liveness', 'Valence', 'Length (Duration)', 'Acousticness',
-        'Speechiness', 'Popularity'])
-    feature = st.selectbox('Choose a feature we can recommend based on.', selections)
+    st.write("The song you are inspecting is "+"**"+selected_value+ "**"+' and its genre falls in '+"**"+genre_edge + "**")
+    st.write("We will recommend based the similarity of these features:", "**"+', '.join(feature)+"**")
 
     # Edgemap Plot
 
@@ -127,7 +135,10 @@ if selected_value:
         top5_idx = []
         for row in A:
             sort = sorted(row, reverse=True)
-            top5_idx.append(np.where((row <= sort[1]) & (row >=sort[min(5, np.count_nonzero(sort)-1)])))
+            idx = np.where((row <= sort[1]) & (row >=sort[min(5, np.count_nonzero(sort)-1)]))
+            if len(idx) > 5:
+                idx = idx[:5]
+            top5_idx.append(idx)
         return top5_idx
 
     def convert(a): # Return adjacency list and weight/year list
@@ -142,20 +153,49 @@ if selected_value:
                         idx = np.random.choice([i,j])
                         eralist.append(df_genre['Era'].to_list()[idx])
         return adjList, weightList, eralist
+    
+    def generate_diff_norm(feature):
+        # df_genre['Length (Duration)'] = df_genre['Length (Duration)'].apply(lambda x: x.replace(',',''))
+        # df_genre['Length (Duration)'] = df_genre['Length (Duration)'].astype(float)
+        if len(feature) == 1:
+            feature = feature[0]
+            diff = np.abs(df_genre[feature].values - df_genre[feature].values[:,None])
+            diff_norm = 1-((diff-diff.min())/(diff.max()-diff.min()))
+            # print(diff_norm)
+            diff_norm[diff_norm<np.quantile(diff_norm, .90)] = 0
+            np.fill_diagonal(diff_norm, 0)
+            # print(diff_norm)
+            idx = np.nonzero(diff_norm)
+            # print(diff_norm[idx]-np.min(diff_norm[idx]), np.max(diff_norm[idx]), np.min(diff_norm[idx]))
+            if np.max(diff_norm[idx])-np.min(diff_norm[idx]) != 0:
+                diff_norm[idx] = (diff_norm[idx]-np.min(diff_norm[idx]))/(np.max(diff_norm[idx])-np.min(diff_norm[idx]))
+            np.fill_diagonal(diff_norm, 0)
+        else:
+            df_temp = df_genre[feature].copy()
+            for column in df_temp.columns:
+                df_temp[column] = (df_temp[column]-df_temp[column].min()) / (df_temp[column].max()-df_temp[column].min())
+            diff_norm = 1 - sp.distance.cdist(df_temp.values, df_temp.values, 'cosine')
+            diff_norm[diff_norm<np.quantile(diff_norm, .90)] = 0
+            np.fill_diagonal(diff_norm, 0)
+            idx = np.nonzero(diff_norm)
+            diff_norm[idx] = (diff_norm[idx]-np.min(diff_norm[idx]))/(np.max(diff_norm[idx])-np.min(diff_norm[idx]))
+            np.fill_diagonal(diff_norm, 0)
+
+        return diff_norm
+
 
     # print(genre_edge)
     df_genre = df[get_slice_data(df, genre_edge)].copy()
+    df_genre['Length (Duration)'] = df_genre['Length (Duration)'].apply(lambda x: x.replace(',',''))
+    df_genre['Length (Duration)'] = df_genre['Length (Duration)'].astype(float)
     df_genre['Era']=df_genre['Year'].apply(map_function)
     # df_genre = df[df['Top Genre'] == genre]
-    diff = np.abs(df_genre[feature].values - df_genre[feature].values[:,None])
-    diff_norm = 1-((diff-diff.min())/(diff.max()-diff.min()))
-    diff_norm[diff_norm<0.97] = 0
-    np.fill_diagonal(diff_norm, 0)
-    idx = np.nonzero(diff_norm)
-    diff_norm[idx] = (diff_norm[idx]-np.min(diff_norm[idx]))/(np.max(diff_norm[idx])-np.min(diff_norm[idx]))
-    np.fill_diagonal(diff_norm, 0)
+
+
+    diff_norm = generate_diff_norm(feature)
 
     AdjList, WeightList, Eralist = convert(diff_norm)
+    # print(WeightList)
     g = ig.Graph(len(diff_norm), AdjList)
     g.vs["name"] = list(df_genre['Title'])
     g.vs['Era'] = list(df_genre['Era'])
@@ -192,12 +232,12 @@ if selected_value:
         height=height,
         xaxis=go.layout.XAxis(axis),
         yaxis=go.layout.YAxis(axis),
-        # margin=go.layout.Margin(
-        #     l=20,
-        #     r=20,
-        #     b=45,
-        #     t=50,
-        # ),
+        margin=go.layout.Margin(
+            l=20,
+            r=20,
+            b=45,
+            t=50,
+        ),
         hovermode='closest'
         )
 
@@ -235,44 +275,50 @@ if selected_value:
         x=np.array(Xn)[select_idx][0],
         y=np.array(Yn)[select_idx][0],
         showarrow=False,
-        xshift=10,
+        yshift=-20,
+        font_size=20,
         text="<b>"+selected_value+"</b>")
     fig.update_layout(legend_title_text='Year')
+
+    top5_idx = get_top5_idx(diff_norm[select_idx])
+    top5_track = [np.array(df_genre['Title'].to_list())[i] for i in top5_idx]
+    st.write("Our recommended top similar tracks: (Zoom in and hover to see more!)")
+    st.write("\n".join(['('+str(i+1)+') '+str(x) for i, x in enumerate(top5_track[0])]))
 
     st.plotly_chart(fig, use_container_width=True)
 
 
-cols=st.columns(2)
+# cols=st.columns(2)
 
-with cols[0]:
-    selections = np.array(['album rock', 'adult standards', 'dutch pop', 'alternative rock',
-       'dance pop', 'others'])
-    genre=st.selectbox('Top Genre2',selections)
-with cols[1]:
-    selections = np.array(['Year','Beats Per Minute (BPM)',	'Energy',	'Danceability',	'Loudness (dB)'	,'Liveness','Valence','Length (Duration)','Acousticness','Speechiness',	'Popularity'])
-    simi_feature=st.selectbox('Interested feature',selections)
+# with cols[0]:
+#     selections = np.array(['album rock', 'adult standards', 'dutch pop', 'alternative rock',
+#        'dance pop', 'others'])
+#     genre=st.selectbox('Top Genre2',selections)
+# with cols[1]:
+#     selections = np.array(['Year','Beats Per Minute (BPM)',	'Energy',	'Danceability',	'Loudness (dB)'	,'Liveness','Valence','Length (Duration)','Acousticness','Speechiness',	'Popularity'])
+#     simi_feature=st.selectbox('Interested feature',selections)
 
-df_genre = df[get_slice_data(df, genre)]
-diff = df_genre[simi_feature].values - df_genre[simi_feature].values[:,None]
-diff_norm = 1-((diff-diff.min())/(diff.max()-diff.min()))
-diff_norm[diff_norm<0.5] = 0
-np.fill_diagonal(diff_norm, 0)
-diff_norm = diff_norm*100
-diff_matrix = pd.concat((df_genre['Title'], pd.DataFrame(diff_norm, columns=df_genre['Title'])), axis=1)
+# df_genre = df[get_slice_data(df, genre)]
+# diff = df_genre[simi_feature].values - df_genre[simi_feature].values[:,None]
+# diff_norm = 1-((diff-diff.min())/(diff.max()-diff.min()))
+# diff_norm[diff_norm<0.5] = 0
+# np.fill_diagonal(diff_norm, 0)
+# diff_norm = diff_norm*100
+# diff_matrix = pd.concat((df_genre['Title'], pd.DataFrame(diff_norm, columns=df_genre['Title'])), axis=1)
 
-cols=st.columns(3)
-with cols[0]:
-    selections = np.array(['album rock', 'adult standards', 'dutch pop', 'alternative rock',
-       'dance pop', 'others'])
-    genre=st.selectbox('Top Genre3',selections)
-with cols[1]:
-    selections = np.array(['Energy','Danceability',	'Loudness (dB)'	,'Liveness','Valence','Length (Duration)','Acousticness','Speechiness'])
-    feature1=st.selectbox('feature1',selections)
-with cols[2]:
-    selections = np.array(['Energy','Danceability',	'Loudness (dB)'	,'Liveness','Valence','Length (Duration)','Acousticness','Speechiness'])
-    feature2=st.selectbox('feature2',selections)
+# cols=st.columns(3)
+# with cols[0]:
+#     selections = np.array(['album rock', 'adult standards', 'dutch pop', 'alternative rock',
+#        'dance pop', 'others'])
+#     genre=st.selectbox('Top Genre3',selections)
+# with cols[1]:
+#     selections = np.array(['Energy','Danceability',	'Loudness (dB)'	,'Liveness','Valence','Length (Duration)','Acousticness','Speechiness'])
+#     feature1=st.selectbox('feature1',selections)
+# with cols[2]:
+#     selections = np.array(['Energy','Danceability',	'Loudness (dB)'	,'Liveness','Valence','Length (Duration)','Acousticness','Speechiness'])
+#     feature2=st.selectbox('feature2',selections)
 
-df_genre = df[get_slice_data(df, genre)]
+# df_genre = df[get_slice_data(df, genre)]
 
-fig = px.scatter(df_genre, x=feature1, y=feature2, color="Top Genre")
-st.plotly_chart(fig)
+# fig = px.scatter(df_genre, x=feature1, y=feature2, color="Top Genre")
+# st.plotly_chart(fig)

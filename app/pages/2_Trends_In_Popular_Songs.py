@@ -29,9 +29,14 @@ st.markdown(page_bg, unsafe_allow_html = True)
 feats = ['Energy','Danceability','Liveness','Valence','Acousticness','Speechiness']
 @st.cache  # add caching so we load the data only once
 def load_data(md):
-    df = pd.read_csv('data/cleaned.csv', encoding='latin-1')
+    # df = pd.read_csv('data/cleaned.csv', encoding='latin-1')
+    df = pd.read_csv('https://raw.githubusercontent.com/CMU-IDS-Fall-2022/final-project-ids-team/main/app/data/cleaned.csv?token=GHSAT0AAAAAABYIOQG7Z42FYYNOVKILQAQGY4SJDGQ', encoding='latin-1')
     df_agg = df.groupby("Year").agg(md)
+    return df_agg, df
 
+def load_genres():    
+    # df = pd.read_csv('data/cleaned.csv', encoding='latin-1')
+    df = pd.read_csv('https://raw.githubusercontent.com/CMU-IDS-Fall-2022/final-project-ids-team/main/app/data/cleaned.csv?token=GHSAT0AAAAAABYIOQG7Z42FYYNOVKILQAQGY4SJDGQ', encoding='latin-1')
     datas = []
     for year in range(2010, 2020):
         temp_data = df[df['Year'] == year]
@@ -42,50 +47,47 @@ def load_data(md):
         datas.append(temp_data)
     df_yearly_genre_count = pd.concat(datas).reset_index()
     print(df_yearly_genre_count)
-    return df_agg, df, df_yearly_genre_count
+    return df_yearly_genre_count
 
 
 #TODO: modify x-axis so every year shows up and not like 2,014
 
-st.markdown("# Change Over Time")
+st.markdown("# How has popularity changed over time?")
 
 st.markdown("#### In this page we explore how the characteristics of popular songs changed over the years.")
 
-
-
-agg_mode = st.radio('We present aggregations of the Spotify features. Choose how you wish to aggregate:', 
-['mean', 'min', 'max', 'median']) 
-
 with st.spinner(text="Loading data..."):
-    df, df_unagg, df_genres = load_data(agg_mode)
-
-st.markdown("How did genre popularity change over the years?")
+    df_genres = load_genres()
+st.markdown("##### Part 1: Was there any change in what genres are popular every year?")
 
 p0_selection = alt.selection_multi(fields=['Top Genre'], bind='legend',init=[{'Top Genre': 'dance pop'}])
 # p0_selection = "dance pop"
 p0_chart = alt.Chart(df_genres).mark_area().encode(
     alt.X("Year:T", axis=alt.Axis(domain=False, format='%Y', tickSize=0)),
     alt.Y("Fraction:Q", stack="zero"),
-    alt.Color('Top Genre:N', scale=alt.Scale(domain=df_genres['Top Genre'].unique().tolist())),
+    alt.Color('Top Genre:N', scale=alt.Scale(domain=sorted(df_genres['Top Genre'].unique().tolist()))),
     opacity=alt.condition(p0_selection, alt.value(1), alt.value(0.1))
 ).add_selection(
     p0_selection
 ).transform_filter(
     p0_selection
 ).properties(width=800)
-
-#     ,
-#     opacity=alt.condition(selection, alt.value(1), alt.value(0.1))
-# ).add_selection(
-#     selection
-# ).transform_filter(
-#     selection
-# )
 st.altair_chart(p0_chart)
+
+
+
+agg_mode = st.radio('In the following plots we present aggregations of the Spotify musical features. Choose how you wish to aggregate:', 
+['mean', 'min', 'max', 'median']) 
+
+st.markdown("##### Part 2: Was there any change in "+agg_mode+" musical feature values over the years?")
+
+with st.spinner(text="Loading data..."):
+    df, df_unagg  = load_data(agg_mode)
+
 
 genre_chosen = st.radio
 ##### Plot 2 ##########
-st.markdown("Heatmap of the aggregated data")
+st.markdown("###### Visualising the aggregated data as a heatmap")
 #source: https://stackoverflow.com/questions/65871604/how-to-display-heatmap-color-correlation-plot-in-streamlit
 fig, ax = plt.subplots()
 #source: https://www.educative.io/answers/how-to-normalize-all-columns-in-a-dataframe-in-pandas
@@ -95,7 +97,7 @@ st.write(fig)
 
 
 ############ PLOT 1 #######################
-st.markdown("Musical features plotted on the line plot")
+st.markdown("##### Part 3: Closely examining desired features")
 p1_selected_features = st.multiselect('Choose features to visualise', feats)
 # print(p1_selected_features)
 
@@ -106,16 +108,19 @@ if p1_selected_features == []:
 
 #source: https://github.com/altair-viz/altair/issues/968
 data = df[p1_selected_features].reset_index().melt('Year')
-
+data["Year"] = data["Year"].apply(lambda x: str(x))
 p1_chart = alt.Chart(data).mark_line().encode(
-    x='Year',
+    alt.X("Year"),# axis=alt.Axis(domain=False, format='%Y', tickSize=0)),
+    # x='Year',
     y='value',
     color='variable'
-).properties(width=600, height=250).interactive()
+).properties(width=600, height=250)
 st.altair_chart(p1_chart)
 
 ############## PLOT 3 #######################
 # print(df)
+
+st.markdown("###### We closely observe the distribution of each feature value in all the songs popular songs each year")
 
 def get_modified_df (df_unagg, feat):
     # print(df_unagg)
@@ -132,22 +137,24 @@ def get_modified_df (df_unagg, feat):
     # print(df_concat)
     return df_concat
 
-# cols=st.columns(len(p1_selected_features))
+allcols= [st.columns(2), st.columns(2), st.columns(2)]
 
 for i in range(len(p1_selected_features)):
     p3_selected_feature = p1_selected_features[i] 
     p3_violin_df = get_modified_df(df_unagg, p3_selected_feature)
     # print(p3_violin_df)
-    # with cols[i]:
-    fig = px.violin(
-            p3_violin_df,orientation='h', labels={'variable':'Year', 'value':p3_selected_feature}
-        ).update_traces(
-            side="positive", width=5, meanline_visible=True, hoveron= "kde", hoverinfo='x'
-        ).update_layout(
-            hovermode="closest"
-        )
-    # fig.update_layout(width=20)
+    print(i, i//2, i%2)
+    with allcols[i//2][i%2]:
+    # p3_violin_df["color"] = "green"
+        fig = px.violin(
+                p3_violin_df,orientation='h', color_discrete_sequence=["green"],  labels={'variable':'Year', 'value':p3_selected_feature}
+            ).update_traces(
+                side="positive", width=5, meanline_visible=True, hoveron= "kde", hoverinfo='x'
+            ).update_layout(
+                hovermode="closest"
+            )
+        fig.update_layout(width=400)
 
-    st.plotly_chart(fig,height=20)
+        st.plotly_chart(fig,height=20)
 
 
