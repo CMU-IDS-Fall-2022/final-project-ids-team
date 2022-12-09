@@ -140,7 +140,7 @@ for i in range(len(p1_selected_features)):
     with allcols[i//2][i%2]:
     # p3_violin_df["color"] = "green"
         fig = px.violin(
-                p3_violin_df,orientation='h', color_discrete_sequence=["green"],  labels={'variable':'Year', 'value':p3_selected_feature, "fillcolor":"green"}
+                p3_violin_df,orientation='h', color_discrete_sequence=["green"],  labels={'variable':'Year', 'value':p3_selected_feature}
             ).update_traces(
                 side="positive", width=5, meanline_visible=True, hoveron= "kde", hoverinfo='x'
             ).update_layout(
