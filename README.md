@@ -12,7 +12,7 @@
 
 Team member | Work done
 ------ | ------
-Liyan   | Recommendation system, edge map   
+Liyan   | Introduction(report), Recommendation songs for users, edge map   
 Haoyu   | Discussion(report), data cleaning, information extraction, API parsing 
 Ran Ju  | Related Work(report), edge map, scatter plot, ridge line plot 
 Vrinda | Methods + Results (report), Trend Analysis (drawing insights), Data Analysis, bubble plot, voilin plots, rec sys design

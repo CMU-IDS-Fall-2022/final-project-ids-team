@@ -44,7 +44,7 @@ st.markdown("# What makes these songs popular?")
 selected_years = st.multiselect('Select a subset of years, \
     or leave unselected to consider all years.', df['Year'].unique()
     )
-st.markdown("### We now explore the overall characteristics of the selected years")
+st.markdown("### Exploring overall characteristics of the selected years")
 
 
 ############ PLOT 1 #######################
