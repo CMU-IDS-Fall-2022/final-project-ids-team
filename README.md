@@ -8,7 +8,11 @@
   * Ran Ju (ranj)
   * Vrinda Jindal (vrindaj)
   * Tanvi Karandikar (tkarandi)
+  
+  
 **Link to Paper**: https://github.com/CMU-IDS-Fall-2022/final-project-ids-team/blob/main/Report.md
+
+**Link to Video**: https://drive.google.com/file/d/1WBZXsk8kMoBW9OenC28hTJSlLWpgW4k0/view?usp=sharing
 
 **Running Instructions for Software**
 ```
