@@ -12,7 +12,7 @@
 
 Team member | Work done
 ------ | ------
-Liyan   | Recommendation songs for users, edge map   
+Liyan   | Introduction(report), Recommendation songs for users, edge map   
 Haoyu   | Discussion(report), data cleaning, information extraction, API parsing 
 Ran Ju  | Related Work(report), edge map, scatter plot, ridge line plot 
    |  
@@ -31,7 +31,7 @@ Ran Ju  | Related Work(report), edge map, scatter plot, ridge line plot
 
 ### Final deliverables
 
-- [ ] All code for the project should be in the repo.
+- [:white_check_mark:] All code for the project should be in the repo.
 - [:white_check_mark:] Update the **Online URL** above to point to your deployed project.
-- [ ] A detailed [project report](Report.md).  Each student should submit the URL that points to this file in their github repo on Canvas.
-- [ ] A 5 minute video demonstration.  Upload the video to this github repo and link to it from your report.
+- [:white_check_mark:] A detailed [project report](Report.md).  Each student should submit the URL that points to this file in their github repo on Canvas.
+- [:white_check_mark:] A 5 minute video demonstration.  Upload the video to this github repo and link to it from your report.
