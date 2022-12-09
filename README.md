@@ -35,7 +35,7 @@ In this project we look at a dataset of the Top 50 Billboard songs from the year
 Team member | Work done
 ------ | ------
 Liyan   | Introduction(report), Recommendation songs for users, edge map   
-Haoyu   | Discussion(report), data cleaning, information extraction, API parsing 
+Haoyu   | Discussion + Future work(report), data cleaning, information extraction, API parsing 
 Ran Ju  | Related Work(report), edge map, scatter plot, ridge line plot 
 Vrinda | Methods + Results (report), Trend Analysis (drawing insights), Data Analysis, bubble plot, voilin plots, rec sys design
 Tanvi    |  Methods + Results (report), application design, popularity Analysis (insights), bar plots, pie chart, video creation
