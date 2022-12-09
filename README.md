@@ -1,4 +1,5 @@
-# Popular Song Data Analysis
+# Analysis of Billboard Top Songs from 2010 to 2019 using Spotify Data
+
 
 * **Online URL**: https://cmu-ids-fall-2022-final-project-ids-team-apphome-7k3ewy.streamlit.app/
 * **Team members**:
@@ -7,6 +8,14 @@
   * Ran Ju (ranj)
   * Vrinda Jindal (vrindaj)
   * Tanvi Karandikar (tkarandi)
+**Link to Paper**: https://github.com/CMU-IDS-Fall-2022/final-project-ids-team/blob/main/Report.md
+
+**Running Instructions for Software**
+```
+cd app/
+pip install -r requirements.txt
+streamlit run Home.py
+````
 
 # Abstract
 
@@ -28,7 +37,7 @@ Tanvi    |  Methods + Results (report), application design, popularity Analysis 
 ## Project Phases
 The Project was carried out in several well ideated and compartmentalized phases. A somewhat detailed flow of the process can be seen below:
 
-
+<p><img src="images/ids.jpg"></p>
 ### Proposal
 
 - [:white_check_mark:] The URL at the top of this readme needs to point to your application online. It should also list the names of the team members.
