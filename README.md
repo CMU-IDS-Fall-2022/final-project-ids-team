@@ -1,6 +1,8 @@
 # Analysis of Billboard Top Songs from 2010 to 2019 using Spotify Data
 
 
+<p align="center"><img src="images/header.png" width=500></p>
+
 * **Online URL**: https://cmu-ids-fall-2022-final-project-ids-team-apphome-7k3ewy.streamlit.app/
 * **Team members**:
   * Liyan Chang (Contact Person: liyanc@andrew.cmu.edu)
