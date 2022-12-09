@@ -1,6 +1,6 @@
 # CMU Interactive Data Science Final Project
 
-* **Online URL**: TODO
+* **Online URL**: https://cmu-ids-fall-2022-final-project-ids-team-apphome-7k3ewy.streamlit.app/
 * **Team members**:
   * Contact person: liyanc@andrew.cmu.edu
   * haoyuq@andrew.cmu.edu
@@ -12,7 +12,7 @@
 
 Team member | Work done
 ------ | ------
-Liyan   | Introduction and Future work(report), recommendation songs for users, edge map   
+Liyan   | Recommendation songs for users, edge map   
 Haoyu   | Discussion(report), data cleaning, information extraction, API parsing 
 Ran Ju  | Related Work(report), edge map, scatter plot, ridge line plot 
    |  
