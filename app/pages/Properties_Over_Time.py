@@ -1,3 +1,4 @@
+from turtle import fillcolor
 import streamlit as st
 import pandas as pd
 import altair as alt
@@ -31,7 +32,10 @@ feats = ['Energy','Danceability','Liveness','Valence','Acousticness','Speechines
 def load_data(md):
     df = pd.read_csv('data/cleaned.csv', encoding='latin-1')
     df_agg = df.groupby("Year").agg(md)
+    return df_agg, df
 
+def load_genres():    
+    df = pd.read_csv('data/cleaned.csv', encoding='latin-1')
     datas = []
     for year in range(2010, 2020):
         temp_data = df[df['Year'] == year]
@@ -42,7 +46,7 @@ def load_data(md):
         datas.append(temp_data)
     df_yearly_genre_count = pd.concat(datas).reset_index()
     print(df_yearly_genre_count)
-    return df_agg, df, df_yearly_genre_count
+    return df_yearly_genre_count
 
 
 #TODO: modify x-axis so every year shows up and not like 2,014
@@ -51,14 +55,8 @@ st.markdown("# Change Over Time")
 
 st.markdown("#### In this page we explore how the characteristics of popular songs changed over the years.")
 
-
-
-agg_mode = st.radio('We present aggregations of the Spotify features. Choose how you wish to aggregate:', 
-['mean', 'min', 'max', 'median']) 
-
 with st.spinner(text="Loading data..."):
-    df, df_unagg, df_genres = load_data(agg_mode)
-
+    df_genres = load_genres()
 st.markdown("How did genre popularity change over the years?")
 
 p0_selection = alt.selection_multi(fields=['Top Genre'], bind='legend',init=[{'Top Genre': 'dance pop'}])
@@ -73,15 +71,15 @@ p0_chart = alt.Chart(df_genres).mark_area().encode(
 ).transform_filter(
     p0_selection
 ).properties(width=800)
-
-#     ,
-#     opacity=alt.condition(selection, alt.value(1), alt.value(0.1))
-# ).add_selection(
-#     selection
-# ).transform_filter(
-#     selection
-# )
 st.altair_chart(p0_chart)
+
+
+agg_mode = st.radio('We present aggregations of the Spotify features. Choose how you wish to aggregate:', 
+['mean', 'min', 'max', 'median']) 
+
+with st.spinner(text="Loading data..."):
+    df, df_unagg  = load_data(agg_mode)
+
 
 genre_chosen = st.radio
 ##### Plot 2 ##########
@@ -132,22 +130,24 @@ def get_modified_df (df_unagg, feat):
     # print(df_concat)
     return df_concat
 
-# cols=st.columns(len(p1_selected_features))
+allcols= [st.columns(2), st.columns(2), st.columns(2)]
 
 for i in range(len(p1_selected_features)):
     p3_selected_feature = p1_selected_features[i] 
     p3_violin_df = get_modified_df(df_unagg, p3_selected_feature)
     # print(p3_violin_df)
-    # with cols[i]:
-    fig = px.violin(
-            p3_violin_df,orientation='h', labels={'variable':'Year', 'value':p3_selected_feature}
-        ).update_traces(
-            side="positive", width=5, meanline_visible=True, hoveron= "kde", hoverinfo='x'
-        ).update_layout(
-            hovermode="closest"
-        )
-    # fig.update_layout(width=20)
+    print(i, i//2, i%2)
+    with allcols[i//2][i%2]:
+    # p3_violin_df["color"] = "green"
+        fig = px.violin(
+                p3_violin_df,orientation='h', color_discrete_sequence=["green"],  labels={'variable':'Year', 'value':p3_selected_feature, "fillcolor":"green"}
+            ).update_traces(
+                side="positive", width=5, meanline_visible=True, hoveron= "kde", hoverinfo='x'
+            ).update_layout(
+                hovermode="closest"
+            )
+        fig.update_layout(width=400)
 
-    st.plotly_chart(fig,height=20)
+        st.plotly_chart(fig,height=20)
 
 

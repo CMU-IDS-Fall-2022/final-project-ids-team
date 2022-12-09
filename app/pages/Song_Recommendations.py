@@ -242,37 +242,37 @@ if selected_value:
     st.plotly_chart(fig, use_container_width=True)
 
 
-cols=st.columns(2)
+# cols=st.columns(2)
 
-with cols[0]:
-    selections = np.array(['album rock', 'adult standards', 'dutch pop', 'alternative rock',
-       'dance pop', 'others'])
-    genre=st.selectbox('Top Genre2',selections)
-with cols[1]:
-    selections = np.array(['Year','Beats Per Minute (BPM)',	'Energy',	'Danceability',	'Loudness (dB)'	,'Liveness','Valence','Length (Duration)','Acousticness','Speechiness',	'Popularity'])
-    simi_feature=st.selectbox('Interested feature',selections)
+# with cols[0]:
+#     selections = np.array(['album rock', 'adult standards', 'dutch pop', 'alternative rock',
+#        'dance pop', 'others'])
+#     genre=st.selectbox('Top Genre2',selections)
+# with cols[1]:
+#     selections = np.array(['Year','Beats Per Minute (BPM)',	'Energy',	'Danceability',	'Loudness (dB)'	,'Liveness','Valence','Length (Duration)','Acousticness','Speechiness',	'Popularity'])
+#     simi_feature=st.selectbox('Interested feature',selections)
 
-df_genre = df[get_slice_data(df, genre)]
-diff = df_genre[simi_feature].values - df_genre[simi_feature].values[:,None]
-diff_norm = 1-((diff-diff.min())/(diff.max()-diff.min()))
-diff_norm[diff_norm<0.5] = 0
-np.fill_diagonal(diff_norm, 0)
-diff_norm = diff_norm*100
-diff_matrix = pd.concat((df_genre['Title'], pd.DataFrame(diff_norm, columns=df_genre['Title'])), axis=1)
+# df_genre = df[get_slice_data(df, genre)]
+# diff = df_genre[simi_feature].values - df_genre[simi_feature].values[:,None]
+# diff_norm = 1-((diff-diff.min())/(diff.max()-diff.min()))
+# diff_norm[diff_norm<0.5] = 0
+# np.fill_diagonal(diff_norm, 0)
+# diff_norm = diff_norm*100
+# diff_matrix = pd.concat((df_genre['Title'], pd.DataFrame(diff_norm, columns=df_genre['Title'])), axis=1)
 
-cols=st.columns(3)
-with cols[0]:
-    selections = np.array(['album rock', 'adult standards', 'dutch pop', 'alternative rock',
-       'dance pop', 'others'])
-    genre=st.selectbox('Top Genre3',selections)
-with cols[1]:
-    selections = np.array(['Energy','Danceability',	'Loudness (dB)'	,'Liveness','Valence','Length (Duration)','Acousticness','Speechiness'])
-    feature1=st.selectbox('feature1',selections)
-with cols[2]:
-    selections = np.array(['Energy','Danceability',	'Loudness (dB)'	,'Liveness','Valence','Length (Duration)','Acousticness','Speechiness'])
-    feature2=st.selectbox('feature2',selections)
+# cols=st.columns(3)
+# with cols[0]:
+#     selections = np.array(['album rock', 'adult standards', 'dutch pop', 'alternative rock',
+#        'dance pop', 'others'])
+#     genre=st.selectbox('Top Genre3',selections)
+# with cols[1]:
+#     selections = np.array(['Energy','Danceability',	'Loudness (dB)'	,'Liveness','Valence','Length (Duration)','Acousticness','Speechiness'])
+#     feature1=st.selectbox('feature1',selections)
+# with cols[2]:
+#     selections = np.array(['Energy','Danceability',	'Loudness (dB)'	,'Liveness','Valence','Length (Duration)','Acousticness','Speechiness'])
+#     feature2=st.selectbox('feature2',selections)
 
-df_genre = df[get_slice_data(df, genre)]
+# df_genre = df[get_slice_data(df, genre)]
 
-fig = px.scatter(df_genre, x=feature1, y=feature2, color="Top Genre")
-st.plotly_chart(fig)
+# fig = px.scatter(df_genre, x=feature1, y=feature2, color="Top Genre")
+# st.plotly_chart(fig)
