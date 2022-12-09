@@ -1,7 +1,8 @@
 # Popular Song Data Analysis
 
 **Project URL**: https://cmu-ids-fall-2022-final-project-ids-team-apphome-7k3ewy.streamlit.app/
-**Video URL**: TODO
+
+**Video URL**: https://drive.google.com/file/d/1WBZXsk8kMoBW9OenC28hTJSlLWpgW4k0/view?usp=sharing
 
 Short (~250 words) abstract of the concrete data science problem and how the solutions addresses the problem.
 
