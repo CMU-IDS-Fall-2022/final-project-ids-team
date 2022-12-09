@@ -8,6 +8,13 @@
   * Vrinda Jindal (vrindaj)
   * Tanvi Karandikar (tkarandi)
 
+# Abstract
+
+In this project we look at a dataset of the Top 50 Billboard songs from the years 2010 to 2019 and use Spotify's musical features to perform analysis. In particular, we look to answer three overarching questions:
+1. Overall Popularity Analysis: What makes these songs popular?
+2. Trends in Popular Songs: How has popularity changed over time?
+3. Song Recommendations: Can we recommend similar songs from a given input?
+
 ## Work distribution
 
 Team member | Work done
