@@ -28,7 +28,7 @@ st.markdown("# Song Recommendations")
 # @st.cache  # add caching so we load the data only once
 @st.cache(allow_output_mutation=True)
 def load_data():
-    df = pd.read_csv('data/Spotify-2000.csv')
+    df = pd.read_csv('https://raw.githubusercontent.com/CMU-IDS-Fall-2022/final-project-ids-team/main/app/data/Spotify-2000.csv?token=GHSAT0AAAAAABYIOQG7ZHGZFBIIXQBNJPOEY4SNJRQ')
     # df.fillna(0)
     return df
 
