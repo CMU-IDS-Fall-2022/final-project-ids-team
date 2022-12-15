@@ -46,7 +46,7 @@ def load_genres():
         temp_data["Year"] = datetime.strptime(str(year), "%Y")
         datas.append(temp_data)
     df_yearly_genre_count = pd.concat(datas).reset_index()
-    print(df_yearly_genre_count)
+    # print(df_yearly_genre_count)
     return df_yearly_genre_count
 
 
@@ -143,7 +143,7 @@ for i in range(len(p1_selected_features)):
     p3_selected_feature = p1_selected_features[i] 
     p3_violin_df = get_modified_df(df_unagg, p3_selected_feature)
     # print(p3_violin_df)
-    print(i, i//2, i%2)
+    # print(i, i//2, i%2)
     with allcols[i//2][i%2]:
     # p3_violin_df["color"] = "green"
         fig = px.violin(
