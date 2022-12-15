@@ -50,7 +50,7 @@ def get_slice_data(df, genre):
 # st.write("Please select your interested genre and observe the trend of some features from 60s to the recent.")
 
 df = load_data()
-
+genre_list = df['Top Genre'].value_counts().index[:20]
 
 # with st.sidebar:
 #     # st.header('Spotify Music Analysis')
@@ -112,7 +112,7 @@ feature = st.multiselect('Choose desired features we can recommend based on.', o
 if selected_value:
     # selected_value = 'Sunrise'
     # print(df['Title'==selected_value]['Top Genre'])
-    if df[df['Title']==selected_value]['Top Genre'].to_list()[0] in ['album rock', 'adult standards', 'dutch pop', 'alternative rock', 'dance pop']:
+    if df[df['Title']==selected_value]['Top Genre'].to_list()[0] in genre_list:
         genre_edge = df[df['Title']==selected_value]['Top Genre'].to_list()[0]
     else:
         genre_edge = 'others'
