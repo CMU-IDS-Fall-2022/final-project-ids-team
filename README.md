@@ -3,7 +3,7 @@
 
 <p align="center"><img src="images/header.png" width=500></p>
 
-* **Online URL**: https://cmu-ids-fall-2022-final-project-ids-team-apphome-7k3ewy.streamlit.app/
+* **Online URL**: https://cmu-ids-fall-2022-final-project-ids-team-apphome-aormdo.streamlit.app/
 * **Team members**:
   * Liyan Chang (Contact Person: liyanc@andrew.cmu.edu)
   * Haoyu Qi (haoyuq)
