@@ -52,7 +52,7 @@ st.markdown("##### Part 1: What song genres are popular?")
 
 
 p1_labels = get_slice_data(df, None, selected_years)
-print(p1_labels)
+# print(p1_labels)
 
 p1_chart = alt.Chart(df[p1_labels!=0]).mark_bar().encode(
     x=alt.X('count()', axis=alt.Axis(title='Number of Songs')),
@@ -115,11 +115,11 @@ maindf = df.groupby("artist").agg("mean")
 counter = df.groupby("artist").agg("count")
 maindf["Number of Songs"] = counter["title"]
 counter = df.groupby("artist").agg(lambda x: pd.Series.mode(x)[0])
-print(counter)
+# print(counter)
 maindf["genre"] = counter["Top Genre"]
 
 maindf = maindf.reset_index()
-print(maindf)
+# print(maindf)
 
 slider = st.slider("Move slider to filter out less popular artists (Slider value indicates number of songs by artist in the dataset)", min_value=1, max_value=max(maindf["Number of Songs"]), step=1)
 
