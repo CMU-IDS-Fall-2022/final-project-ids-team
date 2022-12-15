@@ -31,7 +31,10 @@ feats = ['Energy','Danceability','Liveness','Valence','Acousticness','Speechines
 def load_data(md):
     # df = pd.read_csv('data/cleaned.csv', encoding='latin-1')
     df = pd.read_csv('https://raw.githubusercontent.com/CMU-IDS-Fall-2022/final-project-ids-team/main/app/data/cleaned.csv?token=GHSAT0AAAAAABYIOQG7Z42FYYNOVKILQAQGY4SJDGQ', encoding='latin-1')
-    df_agg = df.groupby("Year").agg(md)
+    numerics = ['int', 'float']
+    df_muneric = df.select_dtypes(include=numerics)
+    df_muneric['Year'] = df['Year']
+    df_agg = df_muneric.groupby("Year").agg(md)
     return df_agg, df
 
 def load_genres():    

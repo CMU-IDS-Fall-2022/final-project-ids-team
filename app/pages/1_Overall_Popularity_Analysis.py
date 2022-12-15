@@ -111,7 +111,11 @@ st.markdown("Now we visualise at the granularity level of artists. In the plot b
 Size of the dot is the number of times an artist is present in the dataset. On the X-axis is average year of all the \
     songs by the artist. Y-axis is average "+p2_selected_feature)
 
-maindf = df.groupby("artist").agg("mean")
+numerics = ['int', 'float']
+# df = df.select_dtypes(include=numerics)
+df_muneric = df.select_dtypes(include=numerics)
+df_muneric['artist'] = df['artist']
+maindf = df_muneric.groupby("artist").agg("mean")
 counter = df.groupby("artist").agg("count")
 maindf["Number of Songs"] = counter["title"]
 counter = df.groupby("artist").agg(lambda x: pd.Series.mode(x)[0])
