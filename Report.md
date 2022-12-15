@@ -1,6 +1,6 @@
 # Popular Song Data Analysis
 
-**Project URL**: https://cmu-ids-fall-2022-final-project-ids-team-apphome-7k3ewy.streamlit.app/
+**Project URL**: https://cmu-ids-fall-2022-final-project-ids-team-apphome-aormdo.streamlit.app/
 
 **Video URL**: https://drive.google.com/file/d/1WBZXsk8kMoBW9OenC28hTJSlLWpgW4k0/view?usp=sharing
 
